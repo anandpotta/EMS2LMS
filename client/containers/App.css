@@ -1,0 +1,116 @@
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100%;
+}
+
+.app h2 {
+  color: rgba(0, 0, 0, .85);
+  font-family: Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 1.6em 0 .6em;
+  font-weight: 500;
+  clear: both;
+}
+
+.app .logo {
+  height: 40px;
+  border-radius: 6px;
+  margin: 16px;
+}
+
+.app .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app .table-header .table-header-item {
+  padding: 16px 8px 16px 0px;
+}
+
+.app .table-header .search-bar {
+  padding-right: 0;
+  width: 300px;
+}
+
+.app .table-header .ant-table-title {
+  font-size: 16px;
+}
+
+.app .table-header .table-header-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-layout-content .page-title {
+  color: rgba(0, 0, 0, .85);
+  font-weight: 500;
+  line-height: 40px;
+  margin-bottom: 24px;
+  margin-top: 8px;
+  font-family: Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.global-search-wrapper {
+  padding-right: 50px;
+}
+
+.global-search {
+  width: 100%;
+}
+
+.global-search.ant-select-auto-complete .ant-select-selection--single {
+  margin-right: -46px;
+}
+
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input:not(:last-child) {
+  padding-right: 62px;
+}
+
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix {
+  right: 0;
+}
+
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.global-search-item-count {
+  position: absolute;
+  right: 16px;
+}
+
+.global-search.ant-select-auto-complete .Active {
+  background-color: #108ee9;
+}
+
+.form-header {
+  display: inline-flex;
+}
+.fadeTranslate-enter {
+  opacity: 0;
+  transform: translate(0, -3vh);
+  position: fixed;
+}
+
+.fadeTranslate-enter.fadeTranslate-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: opacity 500ms ease-in 500ms, transform 500ms ease-in-out 500ms;
+}
+
+.fadeTranslate-exit {
+  opacity: 1;
+  position: fixed;
+  transform: translate(0, 0);
+}
+
+.fadeTranslate-exit.fadeTranslate-exit-active {
+  opacity: 0;
+  transform: translate(0, 3vh);
+  transition: opacity 300ms ease-in, transform 300ms ease-in-out;
+}
+
+.fix-container {
+  position: fixed;
+}
