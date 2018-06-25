@@ -18,7 +18,7 @@
     "npm": "3.10.9",
     "node": ">=6.9.2"
   },
-  "author": "Michael luo <michael.luo0801@gmail.com>",
+  "author": "Anand Potta <anand.potta@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "ajv": "^5.2.2",
