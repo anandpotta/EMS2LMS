@@ -1,31 +1,51 @@
 const webpack = require('webpack');
 const path = require('path');
-const common = require('./webpack.common.js');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const common = require('./webpack.common.js');
+
 
 
 module.exports = merge(common, {
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    /*
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       filename: "vendor.bundle.js",
+      // (with more entries, this ensures that no other module goes into the vendor chunk)
     }),
+    */
     // compile time plugins
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
     new webpack.SourceMapDevToolPlugin({
       filename: '[name].js.map',
       exclude: ['vendor.bundle.js']
     }),
-    new UglifyJSPlugin({
-      sourceMap: true
+    // webpack-dev-server enhancement plugins
+    new webpack.LoaderOptionsPlugin({
+      debug: true
     }),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [{
@@ -35,18 +55,13 @@ module.exports = merge(common, {
           loader: 'babel-loader',
           options: {
             presets: ['react', 'es2015'],
-            plugins: [require('babel-plugin-transform-object-rest-spread'), ["import", {
-              libraryName: "antd",
-              style: "css"
-            }]]
+            plugins: [
+              require('babel-plugin-transform-object-rest-spread'), ["import", {
+                libraryName: "antd",
+                style: "css"
+              }]
+            ]
           }
-        }]
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {}
         }]
       },
       {
@@ -57,5 +72,19 @@ module.exports = merge(common, {
   },
   resolve: {
     modules: [path.resolve(__dirname, "client"), "node_modules"]
-  }
+  },
+  devServer: {
+    hot: true,
+    inline: true,
+    port: 8000,
+    contentBase: path.join(__dirname, '/static/'),
+    proxy: {
+      '/api': 'http://localhost:8080'
+    },
+    historyApiFallback: true,
+    watchOptions: {
+      poll: true
+    }
+  },
+  devtool: 'cheap-module-eval-source-map'
 });
