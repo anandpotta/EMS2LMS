@@ -8,13 +8,30 @@ const common = require('./webpack.common.js');
 
 
 module.exports = merge(common, {
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    /*
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       filename: "vendor.bundle.js",
       // (with more entries, this ensures that no other module goes into the vendor chunk)
     }),
+    */
     // compile time plugins
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
